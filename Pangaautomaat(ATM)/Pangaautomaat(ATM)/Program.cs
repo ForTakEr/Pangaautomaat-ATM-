@@ -54,21 +54,22 @@ namespace Pangaautomaat_ATM_
                     else
                     {
                         Console.WriteLine("Sellise nimega konto on juba olemas!");
-                    }
-                    Console.WriteLine("Kas soovite uuesti proovida? (Y/N)");
-                    v = Console.ReadLine();
-                    if (v != "Y") goto Reg;
+                        Console.WriteLine("Kas soovite uuesti proovida? (Y/N)");
+                        v = Console.ReadLine();
+                        if (v != "Y") goto Reg;
 
-                    if (v != "N")
-                    {
-                        goto Algus;
+                        if (v != "N")
+                        {
+                            goto Algus;
+                        }
                     }
+                    
                 }
                 if (cmd == 2)
                 {
                     Console.WriteLine("\nPalun sisestage kontonimi");
                     konto.Nimi = Console.ReadLine();
-                    if (File.Exists(path + konto.Nimi + ".txt"))
+                    if (File.Exists(konto.Nimi + ".txt"))
                     {
                         Console.WriteLine("Palun sisestage PIN");
                         konto.Pin = int.Parse(Console.ReadLine());
@@ -85,11 +86,14 @@ namespace Pangaautomaat_ATM_
                                 konto.RahaS();
                                 Console.WriteLine("Kas te soovite jätkata? (Y/N)");
                                 v = Console.ReadLine();
-                                if (v == "Y")
+                                if (v != "Y")
                                 {
                                     goto Siin;
                                 }
-                                else break;
+                                if (v != "N")
+                                {
+                                    goto Algus;
+                                }
                             }
                             else if (cmd == 2)
                             {
@@ -100,7 +104,10 @@ namespace Pangaautomaat_ATM_
                                 {
                                     goto Siin;
                                 }
-                                else break;
+                                if (v == "N")
+                                {
+                                    goto Algus;
+                                }
                             }
                         }
                         else
